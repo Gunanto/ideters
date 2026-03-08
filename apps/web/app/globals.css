@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply antialiased;
+}
+.container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+.card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+}
+.prose-content {
+    @apply max-w-none text-slate-700 leading-7;
+}
+.input {
+    @apply w-full rounded-xl border border-slate-300 px-3 py-2 text-sm;
+}
+.button {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium;
+}
+.button-primary {
+    @apply button bg-brand-500 text-white hover:bg-brand-700;
+}
+.button-secondary {
+    @apply button border border-slate-300 bg-white text-slate-700;
+}
+.label {
+    @apply mb-1 block text-sm font-medium text-slate-700;
+}

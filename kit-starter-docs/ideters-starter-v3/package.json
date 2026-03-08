@@ -1,0 +1,11 @@
+{
+  "name": "ideters",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm --filter @ideters/web dev",
+    "build": "pnpm --filter @ideters/web build",
+    "lint": "pnpm --filter @ideters/web lint",
+    "typecheck": "pnpm --filter @ideters/web typecheck"
+  }
+}

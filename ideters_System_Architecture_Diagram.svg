@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1400" viewBox="0 0 2200 1400">
+  <style>
+    .title { font: bold 30px Arial, sans-serif; fill:#111827; }
+    .subtitle { font: 18px Arial, sans-serif; fill:#374151; }
+    .box { fill:#ffffff; stroke:#1f2937; stroke-width:2.5; rx:16; ry:16; }
+    .group { fill:#f8fafc; stroke:#94a3b8; stroke-width:2; rx:22; ry:22; }
+    .header { font: bold 22px Arial, sans-serif; fill:#111827; }
+    .text { font: 16px Arial, sans-serif; fill:#1f2937; }
+    .small { font: 14px Arial, sans-serif; fill:#475569; }
+    .line { stroke:#334155; stroke-width:3; fill:none; marker-end:url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <text x="60" y="60" class="title">IDETERS LMS — System Architecture Diagram</text>
+  <text x="60" y="95" class="subtitle">Next.js + Supabase + MinIO architecture for course, syntax, and quiz workflows</text>
+
+  <rect x="40" y="130" width="360" height="380" class="group"/>
+  <text x="70" y="170" class="header">Users / Clients</text>
+  <rect x="70" y="210" width="300" height="80" class="box"/>
+  <text x="95" y="255" class="text">Student Web Browser</text>
+  <rect x="70" y="310" width="300" height="80" class="box"/>
+  <text x="95" y="355" class="text">Instructor Web Browser</text>
+  <rect x="70" y="410" width="300" height="80" class="box"/>
+  <text x="95" y="455" class="text">Admin Web Browser</text>
+
+  <rect x="470" y="130" width="630" height="610" class="group"/>
+  <text x="500" y="170" class="header">Application Layer — Next.js App Router</text>
+
+  <rect x="510" y="220" width="250" height="110" class="box"/>
+  <text x="535" y="255" class="text">Server Components</text>
+  <text x="535" y="285" class="small">course pages, module pages, activity viewer</text>
+
+  <rect x="800" y="220" width="250" height="110" class="box"/>
+  <text x="825" y="255" class="text">Client Components</text>
+  <text x="825" y="285" class="small">quiz UI, editors, drag-and-drop builder</text>
+
+  <rect x="510" y="380" width="250" height="120" class="box"/>
+  <text x="535" y="420" class="text">Route Handlers / Server Actions</text>
+  <text x="535" y="450" class="small">create course, publish content, submit quiz</text>
+
+  <rect x="800" y="380" width="250" height="120" class="box"/>
+  <text x="825" y="420" class="text">Domain Services</text>
+  <text x="825" y="450" class="small">course service, syntax service, quiz service</text>
+
+  <rect x="510" y="560" width="540" height="140" class="box"/>
+  <text x="535" y="600" class="text">Content Rendering Pipeline</text>
+  <text x="535" y="630" class="small">Markdown source → remark/rehype → KaTeX pre-render → sanitized HTML → published snapshot</text>
+  <text x="535" y="660" class="small">Used during draft save, publish, and re-render migrations</text>
+
+  <rect x="1180" y="130" width="500" height="820" class="group"/>
+  <text x="1210" y="170" class="header">Backend Platform — Supabase</text>
+
+  <rect x="1220" y="220" width="420" height="100" class="box"/>
+  <text x="1245" y="255" class="text">Supabase Auth</text>
+  <text x="1245" y="285" class="small">email/password, OAuth, session cookies, role bootstrap</text>
+
+  <rect x="1220" y="350" width="420" height="160" class="box"/>
+  <text x="1245" y="385" class="text">Postgres Database</text>
+  <text x="1245" y="415" class="small">courses, modules, activities, learning_syntaxes</text>
+  <text x="1245" y="445" class="small">quizzes, questions, attempts, progress, files</text>
+  <text x="1245" y="475" class="small">indexes, views, triggers, audit columns</text>
+
+  <rect x="1220" y="540" width="420" height="130" class="box"/>
+  <text x="1245" y="575" class="text">Row Level Security</text>
+  <text x="1245" y="605" class="small">student access by enrollment</text>
+  <text x="1245" y="635" class="small">instructor/admin access by ownership and membership</text>
+
+  <rect x="1220" y="700" width="420" height="130" class="box"/>
+  <text x="1245" y="735" class="text">Supabase Storage API</text>
+  <text x="1245" y="765" class="small">signed URLs, uploads, bucket policies, object metadata</text>
+  <text x="1245" y="795" class="small">backed by S3-compatible object storage</text>
+
+  <rect x="1760" y="130" width="380" height="420" class="group"/>
+  <text x="1790" y="170" class="header">Object Storage Layer</text>
+  <rect x="1790" y="230" width="320" height="110" class="box"/>
+  <text x="1820" y="270" class="text">MinIO</text>
+  <text x="1820" y="300" class="small">private buckets, media, attachments, exported files</text>
+  <rect x="1790" y="380" width="320" height="130" class="box"/>
+  <text x="1820" y="420" class="text">Optional CDN / Reverse Proxy</text>
+  <text x="1820" y="450" class="small">cache static assets and public thumbnails</text>
+  <text x="1820" y="480" class="small">keep private materials on signed URLs</text>
+
+  <rect x="470" y="820" width="760" height="280" class="group"/>
+  <text x="500" y="860" class="header">Core Business Flows</text>
+  <rect x="510" y="910" width="680" height="70" class="box"/>
+  <text x="540" y="952" class="text">Authoring Flow: Instructor → Builder → Save Draft → Render Content → Publish Course</text>
+  <rect x="510" y="995" width="680" height="70" class="box"/>
+  <text x="540" y="1037" class="text">Learning Flow: Student → Browse Course → Open Activity → Update Progress → Take Quiz</text>
+
+  <rect x="1260" y="1010" width="880" height="250" class="group"/>
+  <text x="1290" y="1050" class="header">Operational Concerns</text>
+  <rect x="1300" y="1090" width="240" height="120" class="box"/>
+  <text x="1325" y="1130" class="text">CI/CD</text>
+  <text x="1325" y="1160" class="small">lint, test, build, deploy</text>
+  <rect x="1570" y="1090" width="240" height="120" class="box"/>
+  <text x="1595" y="1130" class="text">Monitoring</text>
+  <text x="1595" y="1160" class="small">logs, metrics, traces, alerts</text>
+  <rect x="1840" y="1090" width="240" height="120" class="box"/>
+  <text x="1865" y="1130" class="text">Backups</text>
+  <text x="1865" y="1160" class="small">DB dumps, bucket replication</text>
+
+  <!-- lines -->
+  <path d="M400 250 L510 250" class="line"/>
+  <path d="M400 350 L800 350 L800 330" class="line"/>
+  <path d="M400 450 L510 450" class="line"/>
+  <path d="M760 275 L1220 275" class="line"/>
+  <path d="M1050 440 L1220 430" class="line"/>
+  <path d="M780 630 L1220 430" class="line"/>
+  <path d="M1430 670 L1430 700" class="line"/>
+  <path d="M1640 765 L1790 285" class="line"/>
+  <path d="M1430 510 L1430 540" class="line"/>
+  <path d="M900 980 L1220 430" class="line"/>
+  <path d="M900 1030 L1220 430" class="line"/>
+</svg>

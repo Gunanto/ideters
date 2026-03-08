@@ -1,12 +1,10 @@
-'use client';
+"use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export function LoginForm() {
+export function LoginForm({ nextPath = "/dashboard" }: { nextPath?: string }) {
   const router = useRouter();
-  const params = useSearchParams();
-  const next = params.get("next") || "/dashboard";
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -18,13 +16,13 @@ export function LoginForm() {
     const formData = new FormData(event.currentTarget);
     const payload = {
       email: String(formData.get("email") || ""),
-      password: String(formData.get("password") || "")
+      password: String(formData.get("password") || ""),
     };
 
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     const json = await res.json();
@@ -35,7 +33,9 @@ export function LoginForm() {
       return;
     }
 
-    router.push(next);
+    router.push(
+      nextPath.startsWith("/") ? (nextPath as "/dashboard") : "/dashboard",
+    );
     router.refresh();
   }
 
@@ -43,14 +43,30 @@ export function LoginForm() {
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
         <label className="label">Email</label>
-        <input className="input" type="email" name="email" defaultValue="instructor@ideters.local" required />
+        <input
+          className="input"
+          type="email"
+          name="email"
+          defaultValue="instructor@ideters.local"
+          required
+        />
       </div>
       <div>
         <label className="label">Password</label>
-        <input className="input" type="password" name="password" defaultValue="password123" required />
+        <input
+          className="input"
+          type="password"
+          name="password"
+          defaultValue="password123"
+          required
+        />
       </div>
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      <button className="button-primary w-full" disabled={loading} type="submit">
+      <button
+        className="button-primary w-full"
+        disabled={loading}
+        type="submit"
+      >
         {loading ? "Memproses..." : "Login"}
       </button>
     </form>
